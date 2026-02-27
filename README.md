@@ -4,7 +4,7 @@ A portable cloud environment for testing network designs with containerlab and N
 
 ## What This Is
 
-- **Containerlab devices:** Virtual Cisco routers that behave like real hardware
+- **Containerlab devices:** Virtual Nokia SR Linux routers (no licensing required)
 - **Netbox:** Inventory management for your network
 - **pyATS:** Test automation (already available in the environment)
 - **Devcontainer:** Preconfigured tools (containerlab + docker-compose)
@@ -50,10 +50,19 @@ cd netbox
 docker-compose up -d
 ```
 
-Wait ~30 seconds, then access Netbox at:
-- **URL:** http://localhost:8000
+Wait ~30 seconds for Netbox to start. Then:
+
+**Access Netbox:**
+- In your Codespace terminal, look for a notification like:
+  ```
+  Forwarded port 8000
+  https://brave-space-puma-8000.app.github.dev
+  ```
+- Or go to the **Ports** tab in VS Code (bottom panel) and click the forwarded URL
 - **Username:** admin@netbox.local
 - **Password:** admin
+
+**The URL format is:** `https://<codespace-name>-8000.app.github.dev`
 
 ### 4. Deploy Network Lab
 
@@ -74,11 +83,11 @@ SSH into the routers:
 ```bash
 # Router 1
 ssh admin@192.168.100.11
-# Password: admin
+# Password: NokiaSrl1!
 
 # Router 2
 ssh admin@192.168.100.12
-# Password: admin
+# Password: NokiaSrl1!
 ```
 
 ### 6. Run pyATS Tests
@@ -124,6 +133,7 @@ Data: 10.0.0.0/24
 
 ## Notes
 
+- **No licensing required** — Nokia SR Linux is free and open source
 - Data persists in Codespace storage (until you delete the codespace)
 - Netbox port 8000 is forwarded for web access
 - Containerlab devices are accessible via SSH

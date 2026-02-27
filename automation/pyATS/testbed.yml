@@ -3,14 +3,12 @@ testbed:
 
   devices:
     r1:
-      os: iosxr
+      os: srlinux
       type: router
       credentials:
         default:
           username: admin
-          password: admin
-        enable:
-          password: admin
+          password: NokiaSrl1!
       connections:
         a:
           protocol: ssh
@@ -18,14 +16,12 @@ testbed:
           port: 22
 
     r2:
-      os: iosxr
+      os: srlinux
       type: router
       credentials:
         default:
           username: admin
-          password: admin
-        enable:
-          password: admin
+          password: NokiaSrl1!
       connections:
         a:
           protocol: ssh
@@ -35,13 +31,13 @@ testbed:
   topology:
     r1:
       interfaces:
-        GigabitEthernet0/0/0/0:
+        ethernet-1/1:
           enabled: true
           ipv4: 10.0.0.1/24
           link: r1-r2
     r2:
       interfaces:
-        GigabitEthernet0/0/0/0:
+        ethernet-1/1:
           enabled: true
           ipv4: 10.0.0.2/24
           link: r1-r2
@@ -50,6 +46,6 @@ testbed:
     r1-r2:
       endpoints:
         - node: r1
-          interface: GigabitEthernet0/0/0/0
+          interface: ethernet-1/1
         - node: r2
-          interface: GigabitEthernet0/0/0/0
+          interface: ethernet-1/1

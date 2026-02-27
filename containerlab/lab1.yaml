@@ -2,14 +2,12 @@ name: lab1
 topology:
   nodes:
     r1:
-      kind: vr-csr
-      image: vrnetlab/vr-csr1000v:latest
-      license: ./licenses/r1.lic
+      kind: nokia_srlinux
+      image: ghcr.io/nokia/srlinux:24.10.1
       mgmt-ipv4: 192.168.100.11
     r2:
-      kind: vr-csr
-      image: vrnetlab/vr-csr1000v:latest
-      license: ./licenses/r2.lic
+      kind: nokia_srlinux
+      image: ghcr.io/nokia/srlinux:24.10.1
       mgmt-ipv4: 192.168.100.12
   links:
-    - endpoints: ["r1:eth1", "r2:eth1"]
+    - endpoints: ["r1:e1-1", "r2:e1-1"]

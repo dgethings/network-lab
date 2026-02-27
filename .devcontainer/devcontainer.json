@@ -1,0 +1,26 @@
+{
+  "name": "Network Lab",
+  "image": "mcr.microsoft.com/devcontainers/base:ubuntu-22.04",
+  "features": {
+    "ghcr.io/devcontainers/features/docker-in-docker:2": {
+      "version": "latest"
+    }
+  },
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-python.python",
+        "ms-azuretools.vscode-docker"
+      ]
+    }
+  },
+  "postCreateCommand": "sudo apt-get update && sudo apt-get install -y wget ca-certificates && sudo curl -fsSLo- https://raw.githubusercontent.com/srl-labs/containerlab/main/deploy.sh | sudo bash -s",
+  "forwardPorts": [8000],
+  "portsAttributes": {
+    "8000": {
+      "label": "Netbox",
+      "onAutoForward": "notify"
+    }
+  },
+  "remoteUser": "vscode"
+}

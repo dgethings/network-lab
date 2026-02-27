@@ -1,0 +1,55 @@
+testbed:
+  name: "Codespace Network Lab"
+
+  devices:
+    r1:
+      os: iosxr
+      type: router
+      credentials:
+        default:
+          username: admin
+          password: admin
+        enable:
+          password: admin
+      connections:
+        a:
+          protocol: ssh
+          ip: 192.168.100.11
+          port: 22
+
+    r2:
+      os: iosxr
+      type: router
+      credentials:
+        default:
+          username: admin
+          password: admin
+        enable:
+          password: admin
+      connections:
+        a:
+          protocol: ssh
+          ip: 192.168.100.12
+          port: 22
+
+  topology:
+    r1:
+      interfaces:
+        GigabitEthernet0/0/0/0:
+          enabled: true
+          ipv4: 10.0.0.1/24
+          link: r1-r2
+    r2:
+      interfaces:
+        GigabitEthernet0/0/0/0:
+          enabled: true
+          ipv4: 10.0.0.2/24
+          link: r1-r2
+
+  links:
+    r1-r2:
+      endpoints:
+        - node: r1
+          interface: GigabitEthernet0/0/0/0
+        - node: r2
+          interface: GigabitEthernet0/0/0/0

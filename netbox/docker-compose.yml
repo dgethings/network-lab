@@ -1,0 +1,56 @@
+version: '3.8'
+services:
+  postgres:
+    image: postgres:14-alpine
+    environment:
+      POSTGRES_USER: netbox
+      POSTGRES_PASSWORD: netbox
+      POSTGRES_DB: netbox
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U netbox"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  redis:
+    image: redis:7-alpine
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  netbox:
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    image: netboxcommunity/netbox:latest
+    ports:
+      - "8000:8080"
+    environment:
+      DB_HOST: postgres
+      DB_USER: netbox
+      DB_PASSWORD: netbox
+      DB_NAME: netbox
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+      SUPERUSER_EMAIL: admin@netbox.local
+      SUPERUSER_PASSWORD: admin
+      ALLOWED_HOSTS: "*"
+    volumes:
+      - netbox_data:/opt/netbox/media
+      - netbox_config:/etc/netbox/config
+    healthcheck:
+      test: ["CMD", "wget", "--spider", "-q", "http://localhost:8080/api/status/"]
+      interval: 15s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  postgres_data:
+  netbox_data:
+  netbox_config:

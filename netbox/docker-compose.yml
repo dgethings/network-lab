@@ -43,6 +43,7 @@ services:
       SUPERUSER_EMAIL: admin@netbox.local
       SUPERUSER_PASSWORD: admin
       ALLOWED_HOSTS: "*"
+      DB_WAIT_DEBUG=1
     volumes:
       - netbox_data:/opt/netbox/media
       - netbox_config:/etc/netbox/config
